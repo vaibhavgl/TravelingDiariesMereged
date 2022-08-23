@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using TravelingDiaries.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 //services for the DI of repository
 builder.Services.AddScoped<IPlaceRepository, PlaceRepository>();
@@ -18,6 +20,9 @@ string connString = builder.Configuration.GetConnectionString("DefaultConnection
 
 builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(connString));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<AppDbContext>();
 
 
 //adding httpscontext and seesion service
@@ -54,5 +59,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.MapRazorPages();
 app.Run();
