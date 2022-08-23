@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TravelingDiaries.Models.FlightBooking>
+
+@{
+    ViewData["Title"] = "BookingCart";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PassengerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdhaarId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfFlight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Class)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketPrice)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassengerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdhaarId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfFlight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketPrice)
+            </td>
+            <td>
+                
+                <a asp-action="Details" asp-route-id="@item.PassengerId">Ticket</a> 
+               
+            </td>
+            <td>
+                 <a asp-action="Delete" asp-route-id="@item.PassengerId">Cancel Ticket</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
